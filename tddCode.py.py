@@ -5,11 +5,28 @@ def nextBiggerNum(input):
 	print(input, nums)
 	i=len(nums)-1
 	while(i>0):
-		if int(nums[i]) > int(nums[i-1]):
-			nums[i],nums[i-1]= nums[i-1]+nums[i]
-			nums="".join(nums)
-			return int(nums)
-		i=i-1
+		rflag=nums[i]
+		lflag=nums[i-1]
+		
+		if rflag> lflag:
+			t=lflag
+			r=nums[i:]
+			l=nums[0:i]
+			print("T, R, L ")
+			print(t,r,l)
+			rlen=len(r)-1
+			while (rlen>=0):
+				if r[rlen]>t:
+					l[i-1]=r[rlen]
+					r[rlen]=t
+					break
+				rlen-=1
+
+			print('before L:',l," ,r: ",r, ",min(r): ",min(r))	
+			l=l+[str(min(r))]
+			print('after: l= ',l)	
+			return int(''.join(l))
+		i-=1
 	return False
 def Test1():
 	input=1
@@ -29,6 +46,11 @@ def Test3():
 def Test4():
 	input=345
 	expceted=354
+	result= nextBiggerNum(input)
+	return ('result : {0} and {1}'.format(expceted, result),result==expceted)
+def Test4():
+	input=576
+	expceted=657
 	result= nextBiggerNum(input)
 	return ('result : {0} and {1}'.format(expceted, result),result==expceted)
 print("test1 result:",Test1())	
